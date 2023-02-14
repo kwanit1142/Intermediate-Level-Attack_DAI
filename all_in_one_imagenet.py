@@ -51,10 +51,10 @@ def get_data(batch_size, use_Inc_model = False):
                             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
                           ])   
     
-    testset = torchvision.datasets.ImageFolder(root='/share/cuvl/datasets/imagenet/val', 
+    testset = torchvision.datasets.ImageFolder(root='/content/Intermediate-Level-Attack_DAI/tiny-imagenet-200/val/images', 
                                                transform=transform_test)
     testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=True, 
-                                             num_workers=8, pin_memory=True)
+                                             num_workers=2, pin_memory=True)
     return testloader
 
 def get_fool_adv_orig(model, adversarial_xs, originals, labels):
@@ -90,7 +90,7 @@ def test_adv_examples_across_models(transfer_models, adversarial_xs, originals, 
 
 
 def complete_loop(sample_num, batch_size, attacks, source_models, transfer_models, out_name, use_Inc_model):
-    labels_file = open('labels', 'r').readlines()
+    labels_file = open('/content/Intermediate-Level-Attack_DAI/tiny-imagenet-200/val/val_annotations.txt', 'r').readlines()
     out_df = pd.DataFrame(columns=['source_model','target_model','batch_index','layer_index', 'layer_name', 'fool_method', 'with_ILA',  'fool_rate', 'acc_after_attack', 'original_acc'])
     testloader = get_data(batch_size, use_Inc_model)
     for source_model_name, model_class in source_models:
@@ -154,22 +154,3 @@ if __name__ == "__main__":
     transfer_models = list(map(lambda model_name: model_configs[model_name], args.transfer_models))
     
     complete_loop(args.num_batches, args.batch_size, attacks, source_models, transfer_models, args.out_name, args.use_Inc_model);
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
