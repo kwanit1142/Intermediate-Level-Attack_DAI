@@ -564,6 +564,7 @@ def wrap_cw_linf(attack, params):
     Returns:
         The batch of adversarial examples corresponding to the original images
     """
+    epsilon=0.015
     def wrap_f(model, images, labels, niters, use_Inc_model=False):
         def net_hacked(x):
             return model(x * 2)
