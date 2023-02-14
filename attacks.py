@@ -8,8 +8,8 @@ import torch.nn as nn
 import torchvision
 from torch import optim
 from torch.autograd import Variable
-from scipy.misc import imread, imresize, imsave
-
+from skimage.transform import resize
+from imageio import imread, imsave
 
 # helpers
 def avg(l):
