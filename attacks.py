@@ -555,6 +555,7 @@ def wrap_cw_linf(attack, params):
         i2 = images.clone() / 2  # CW optimization happens on -0.5..0.5 range
         cw = CW_Linf(max_iterations=niters)
         res_unclip = torch.stack(cw.attack(net_hacked, i2, labels))
+        epsilon=0.03
         res = (res_unclip - i2).detach().clamp(-epsilon / 2, epsilon / 2) + i2
         r = res.clamp(-0.5, 0.5)
         return torch.mul(r, 2).cuda()  # return normal -1..1 range adversarial example
