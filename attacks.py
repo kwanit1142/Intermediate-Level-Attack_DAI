@@ -8,7 +8,8 @@ import torch.nn as nn
 import torchvision
 from torch import optim
 from torch.autograd import Variable
-from scipy.misc import imread, imresize, imsave
+from imageio import imread, imsave
+from skimage.transform import resize
 
 
 # helpers
@@ -756,7 +757,7 @@ def ILA(
     learning_rate=1,
     dataset="cifar10",
     use_Inc_model = False,
-    with_projection=True,
+    with_projection=False,
 ):
     """Perform ILA attack with respect to model on images X with labels y
     Args:
