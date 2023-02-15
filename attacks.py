@@ -356,7 +356,7 @@ def deepfool(model, images, labels, num_classes=10, niters=50, epsilon=0.03, dat
     r = torch.zeros(images.size()).cuda()
     for i in range(images.size(0)):
         r[i] = deepfool_single(model, images[i], num_classes, max_iter=niters)
-
+    epsilon=0.03
     adv = (r - images).clamp(-epsilon, epsilon) + images
     adv = adv.clamp(-1.0, 1.0)
     return adv
