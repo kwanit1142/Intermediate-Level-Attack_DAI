@@ -191,6 +191,7 @@ def fgsm(model, X, y, epsilon=0.01, **args):
     Returns:
         The batch of adversarial examples corresponding to the original images
     """
+    dataset='cifar10'
     if dataset != "cifar10":
         raise "fgsm as now does not support " + dataset
 
